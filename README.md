@@ -1,21 +1,15 @@
 #Проект Mesto
 
-#Kristina100070.github.sprint13
+#Kristina100070.github.sprint14
 
-[REST API проекта Mesto](https://github.com/Kristina100070/Kristina100070.github.sprint13)
+[аутентификация и авторизация в проекте Mesto](https://github.com/Kristina100070/Kristina100070.github.sprint14)
 
 Node.js приложение подключается к серверу Mongo по адресу mongodb://localhost:27017/mestodb;
 
 ##Запросы: 
 
--GET /cards — возвращает все карточки
+-POST /signup — создаёт нового пользователя
 
--POST /cards — создаёт карточку
+-POST /signin — авторизирует пользоватея
 
--DELETE /cards/:cardId — удаляет карточку по идентификатору
 
--GET /users — возвращает всех пользователей
-
--GET /users/:userId - возвращает пользователя по _id
-
--POST /users — создаёт пользователя
