@@ -12,7 +12,7 @@ const findUser = (req, res, next) => userModel.find({})
 
 const findUserById = (req, res, next) => userModel.findOne({
   _id: req.params.userId,
-}).select('+password')
+}) // .select('+password')
 // eslint-disable-next-line consistent-return
   .then((user) => {
     if (!user) {
@@ -24,20 +24,25 @@ const findUserById = (req, res, next) => userModel.findOne({
     next(err);
   });
 
-const createUser = (req, res, next) => {
+// eslint-disable-next-line consistent-return
+const createUser = (req, res) => {
   const {
     name, about, avatar, email, password,
   } = req.body;
+  if (password.length < 8) {
+    return res.status(400).send({ message: 'Пароль слишком короткий' });
+  }
   bcrypt.hash(password, 10)
     .then((hash) => userModel.create({
       name, about, avatar, email, password: hash,
     }))
     .then((user) => {
-      res.json(user);
+      res.send({
+        _id: user._id, name: user.name, about: user.about, avatar: user.avatar, email: user.email,
+      });
     })
-    .catch((err) => {
-      next(err);
-    });
+    .catch(() => res.status(403)
+      .send({ message: 'Пользователь с таким email уже существует' }));
 };
 
 const login = (req, res) => {
